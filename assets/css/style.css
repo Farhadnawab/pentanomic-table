@@ -13,6 +13,11 @@
     -moz-transition: all ease 0.3s;
     transition: all ease 0.3s;
 }
+:focus,
+:visited{
+    outline: none !important;
+}
+
 body{
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
 }
@@ -35,6 +40,8 @@ body{
 #pentanomic-table tbody td{
     position: relative;
     padding: 1rem .75rem;
+    top: auto;
+    left: auto;
 }
 #pentanomic-table tbody > tr:last-child td{
     border-bottom: 0;
@@ -43,10 +50,10 @@ body{
     content: "";
     position: absolute;
     z-index: -1;
-    top: 3px;
+    top: 0;
     left: -8px;
     right: -8px;
-    bottom: 3px;
+    bottom: 0;
     background: #ffffcc;
     border: 8px solid #c00000;
     border-radius: 8px;
@@ -81,6 +88,17 @@ body{
 }
 
 /** SELECT BOX **/
+.big-ghost{
+    background: rgba(255, 255, 204, 0.35);
+    border: 8px solid #c00000;
+    border-radius: 8px;
+    position:absolute;
+    pointer-events: none;
+}
+.big-ghost ~ .big-ghost{
+    background: transparent;
+    border: 0;
+}
 .ghost-select {
     display: none;
     z-index: 9000;
