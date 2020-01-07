@@ -4,9 +4,9 @@
     isHighlighted;
     $("#pentanomic-table")
     .on("mousedown touchstart", function (e) {
-        /*isMouseDown = true;
-        $(e.target).toggleClass("highlighted")
-        isHighlighted = $(e.target).hasClass("highlighted");*/
+        //isMouseDown = true;
+        //$(e.target).toggleClass("highlighted")
+        //isHighlighted = $(e.target).hasClass("highlighted");
 
         var touch = undefined;
         if(e.originalEvent.touches)
@@ -47,18 +47,12 @@
 
     $("#clear-all").click(function(){
         $(".big-ghost").remove();
+        $("#pentanomic-table th,#pentanomic-table td").removeClass("highlighted");
     });
 
 
     function selectElements(e) {
-        /*if(isMouseDown && (e.type == "touchmove")){
-            var target = document.elementFromPoint(e.originalEvent.changedTouches[0].clientX, e.originalEvent.changedTouches[0].clientY);
-            $(target).toggleClass("highlighted", isHighlighted);
-        }else if(isMouseDown){
-            $(this).toggleClass("highlighted", isHighlighted);
-        }
-
-        isMouseDown = false;*/
+        
         
         $(document).unbind("mousemove touchmove", openSelector);
         $(document).unbind("mouseup touchend touchcancel", selectElements);
@@ -66,6 +60,7 @@
         var minX = 5000;
         var maxY = 0;
         var minY = 5000;
+        var bElemActive;
         var totalElements = 0;
         var elementArr = new Array();
         $("#pentanomic-table th,#pentanomic-table td").each(function () {
@@ -73,7 +68,7 @@
             var bElem = $(this);
             var result = doObjectsCollide(aElem, bElem);
     
-            //console.log(result);
+            
             if (result == true) {
                 
                 var aElemPos = bElem.offset();
@@ -82,6 +77,7 @@
                 var aH = bElem.outerHeight();
                 var bW = bElem.outerWidth();
                 var bH = bElem.outerHeight();
+                bElemActive = bElem;
 
                 var coords = checkMaxMinPos(aElemPos, bElemPos, aW, aH, bW, bH, maxX, minX, maxY, minY);
                 maxX = coords.maxX;
@@ -101,15 +97,25 @@
                 $("body").append("<div id='big-ghost' class='big-ghost' x='" + Number(minX - 20) + "' y='" + Number(minY - 10) + "'></div>");
 
                 $("#big-ghost").css({
-                    'width': maxX + 20 - minX,
-                    'height': maxY + 10 - minY,
-                    'top': minY - 5,
-                    'left': minX - 10
+                    'width': maxX + 16 - minX,
+                    'height': maxY - minY,
+                    'top': minY ,
+                    'left': minX - 8
                 });
-
+                
+                totalElements = totalElements + 1;
                 //bElem.addClass("highlighted");
             }
         });
+        if(totalElements == 1){
+            $(".big-ghost").remove();
+
+            bElemActive.toggleClass("highlighted");
+    
+            //isMouseDown = false;
+        }else if(totalElements > 1){
+            $("#pentanomic-table th,#pentanomic-table td").removeClass("highlighted");
+        }
 
         
         $(".ghost-select").removeClass("ghost-active");
