@@ -13,3 +13,6 @@ If I click/tap+drag across a row or column, a rounded-red rectangle with yellow 
 If I click/tap on an item that is already highlighted with a rounded rectangle, the rounded rectangle should disappear.
 If I click on the title of the table, all the current highlighting should disappear
 ```
+
+# Demo
+https://farhadnawab.github.io/pentanomic-table/index.html
